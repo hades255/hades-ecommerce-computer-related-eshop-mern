@@ -1,0 +1,16 @@
+.home__Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 95%;
+  margin: auto;
+}
+
+.home__Container div {
+  margin-top: 1.5rem;
+}
+
+.banner img {
+  margin-top: 1.5rem;
+}

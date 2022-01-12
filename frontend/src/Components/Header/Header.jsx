@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.css";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 
 function Header() {
@@ -13,10 +13,11 @@ function Header() {
       <div className="navigation__Menus">
         <div>Catalog</div>
         <div>
-          <PersonIcon style={{ "font-size": "2.5rem" }} /> My Account
+          <PersonIcon style={{ "font-size": "2.5rem" }} />
+          My Account
         </div>
         <div>
-          <ShoppingCartIcon style={{ "font-size": "2.5rem" }} /> Cart
+          <ShoppingCartOutlinedIcon style={{ "font-size": "2.5rem" }} /> Cart
         </div>
       </div>
     </div>
