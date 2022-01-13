@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Card.css";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 function Card({ product }) {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const handleFavorite = () => {
+    isFavorite ? setIsFavorite(false) : setIsFavorite(true);
+  };
   return (
     <div id={product.id} className="card__Container">
-      {console.log(product)}
       <div className="product__Img">
+        <div onClick={handleFavorite} className="fav">
+          {isFavorite ? (
+            <FavoriteIcon style={{ "font-size": "2rem" }} />
+          ) : (
+            <FavoriteBorderOutlinedIcon style={{ "font-size": "2rem" }} />
+          )}
+        </div>
         <div
           className="product__Bgd"
           style={{

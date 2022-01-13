@@ -11,8 +11,24 @@
 }
 
 .product__Img {
-  border-bottom: 2px solid black;
+  position: relative;
+  border-bottom: 2px solid #cbcbcb;
   padding: 1.5rem;
+}
+
+.fav {
+  position: absolute;
+  right: 1.3rem;
+  top: -1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: 1px solid #cbcbcb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #e41c1c;
+  cursor: pointer;
 }
 
 .product__Details {
