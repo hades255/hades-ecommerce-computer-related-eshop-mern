@@ -126,9 +126,7 @@ app.get("/:catalog", async (req, res) => {
     let catalog = req.params.catalog;
 
     const data = await findModel(catalog).find();
-    res.json({
-      data: data,
-    });
+    res.json(data);
   } catch (error) {
     res.json({
       message: error,

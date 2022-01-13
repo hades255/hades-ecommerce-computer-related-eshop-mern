@@ -3,12 +3,13 @@ import "./Catalog.css";
 import axios from "axios";
 import Spinner from "../../Components/Spinner/Spinner";
 import CatalogCard from "../../Components/Card/CatalogCard";
+import apiURL from "../../Api";
 
 function Catalog() {
   const [details, setDetails] = useState();
   const [loading, setLoading] = useState(true);
   useEffect(async () => {
-    await axios.get("http://localhost:3001/catalog").then((res) => {
+    await axios.get(`${apiURL}/catalog`).then((res) => {
       setDetails(res.data);
     });
     setLoading(false);
