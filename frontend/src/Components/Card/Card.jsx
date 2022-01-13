@@ -27,11 +27,6 @@ function Card({ product }) {
             backgroundPosition: "center",
           }}
         ></div>
-        {/* <img
-          //   style={{ width: "40rem", height: "30rem" }}
-          src={product.img}
-          alt=""
-        /> */}
       </div>
       <div className="product__Details">
         <h3>{product.name}</h3>

@@ -1,21 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Catalog.css";
+import axios from "axios";
+import Spinner from "../../Components/Spinner/Spinner";
+import CatalogCard from "../../Components/Card/CatalogCard";
 
 function Catalog() {
-  const details = [
-    {
-      name: "cabinet",
-      img: "https://m.media-amazon.com/images/I/51DhaOWyHHL._SL1000_.jpg",
-    },
-  ];
-  const renderCatalog = () => {};
-  return (
-    <div className="catalog_Container">
-      <div className="catalog__Top">
-        <h2>Catalog</h2>
-        <p>8 items</p>
+  const [details, setDetails] = useState();
+  const [loading, setLoading] = useState(true);
+  useEffect(async () => {
+    await axios.get("http://localhost:3001/catalog").then((res) => {
+      setDetails(res.data);
+    });
+    setLoading(false);
+  }, []);
+
+  const renderCatalog = () => {
+    let fragment = (
+      <div className="catalog__Bottom">
+        {details[0].map((ele) => {
+          return <CatalogCard detail={ele} />;
+        })}
       </div>
-      <div className="catalog_Bottom">{renderCatalog()}</div>
+    );
+    return fragment;
+  };
+  return (
+    <div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="catalog_Container">
+          <div className="catalog__Top">
+            <h2>Catalog</h2>
+            <p>{details[0].length} items</p>
+          </div>
+          {renderCatalog()}
+        </div>
+      )}
     </div>
   );
 }

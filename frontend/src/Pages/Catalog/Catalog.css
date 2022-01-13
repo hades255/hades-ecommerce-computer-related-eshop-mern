@@ -22,3 +22,14 @@
   font-size: large;
   color: rgba(0, 0, 0, 0.5);
 }
+
+.catalog__Bottom {
+  width: 95%;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 5rem 1rem;
+  flex-wrap: wrap;
+}
