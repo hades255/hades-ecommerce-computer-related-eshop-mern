@@ -1,9 +1,8 @@
 .home__Container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  width: 95%;
+  justify-content: space-evenly;
+  width: 90%;
   margin: auto;
 }
 
@@ -13,4 +12,22 @@
 
 .banner img {
   margin-top: 1.5rem;
+  width: 100%;
+}
+
+.home__Products p {
+  font-size: 2.5rem;
+  color: #595858;
+}
+
+.home__Products {
+  margin: 5rem 0;
+}
+.arrange__Cards {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1rem 1.5rem 0;
+  flex-wrap: wrap;
 }

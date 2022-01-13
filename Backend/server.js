@@ -63,10 +63,11 @@ app.get("/", async (req, res) => {
     const ram = await ramSC.find();
     const mouse = await mouseSC.find();
     const monitor = await monitorSC.find();
+    const keyboard = await keyboardSC.find();
 
     let data = {
-      deals: [gpu[0], processor[0], monitor[0]],
-      new: [cabinet[0], ram[0], mouse[0]],
+      deals: [gpu[0], processor[0], monitor[0], keyboard[0]],
+      new: [cabinet[0], ram[0], mouse[0], processor[1]],
     };
 
     res.json([data]);
