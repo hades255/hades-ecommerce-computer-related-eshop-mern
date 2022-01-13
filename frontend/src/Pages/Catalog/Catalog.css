@@ -1,0 +1,24 @@
+.catalog_Container {
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog__Top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  border-bottom: 0.2rem solid #cbcbcb;
+}
+
+.catalog__Top h2 {
+  font-size: 5rem;
+  color: rgba(0, 0, 0, 0.85);
+  letter-spacing: 0.5rem;
+}
+
+.catalog__Top p {
+  font-size: large;
+  color: rgba(0, 0, 0, 0.5);
+}

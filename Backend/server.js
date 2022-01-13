@@ -3,6 +3,7 @@ const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const {
+  catalogSC,
   gpuSC,
   processorSC,
   cabinetSC,
@@ -71,6 +72,32 @@ app.get("/", async (req, res) => {
     };
 
     res.json([data]);
+  } catch (error) {
+    res.json({
+      message: error,
+    });
+  }
+});
+
+//catalog endpoint
+
+app.get("/catalog", async (req, res) => {
+  try {
+    const data = await catalogSC.find();
+    res.json([data]);
+  } catch (error) {
+    res.json({
+      message: error,
+    });
+  }
+});
+
+app.post("/catalog", async (req, res) => {
+  try {
+    const cata = await catalogSC.create(req.body);
+    res.json({
+      message: "Data Inserted",
+    });
   } catch (error) {
     res.json({
       message: error,

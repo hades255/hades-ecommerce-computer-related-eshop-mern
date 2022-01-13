@@ -5,6 +5,11 @@ const loginSchema = new mongoose.Schema({
   password: { type: String },
 });
 
+const catalogSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  img: { type: String, required: true },
+});
+
 const productSchema = new mongoose.Schema({
   id: { type: Number, unique: true },
   name: { type: String },
@@ -15,6 +20,7 @@ const productSchema = new mongoose.Schema({
   comments: { type: Array },
 });
 
+const catalogSC = mongoose.model("catalogSC", catalogSchema, "Catalog");
 const gpuSC = mongoose.model("gpuSC", productSchema, "GPU");
 const processorSC = mongoose.model("processorSC", productSchema, "Processor");
 const cabinetSC = mongoose.model("cabinetSC", productSchema, "Cabinet");
@@ -25,6 +31,7 @@ const keyboardSC = mongoose.model("keyboardSC", productSchema, "KeyBoard");
 const monitorSC = mongoose.model("monitorSC", productSchema, "Monitor");
 
 module.exports = {
+  catalogSC,
   gpuSC,
   processorSC,
   cabinetSC,
