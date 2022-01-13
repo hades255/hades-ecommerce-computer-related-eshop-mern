@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Home.css";
 import Spinner from "../../Components/Spinner/Spinner";
 import Card from "../../Components/Card/Card";
+import { DataContext } from "../../Context/DataContext";
 
 function Home() {
   const [loading, setLoading] = useState(true);
-  const [homeData, setHomeData] = useState();
+  const [homeData] = useContext(DataContext);
 
   useEffect(async () => {
-    let data = await fetch("http://localhost:3001/").then((res) => res.json());
-    setHomeData(data);
-    setLoading(false);
-  }, []);
+    if (homeData !== undefined) {
+      setLoading(false);
+    }
+  }, [homeData]);
 
   const renderCards = (data) => {
     let fragment = (
