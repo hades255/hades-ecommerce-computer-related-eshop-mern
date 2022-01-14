@@ -8,6 +8,7 @@ function Card({ product }) {
   const handleFavorite = () => {
     isFavorite ? setIsFavorite(false) : setIsFavorite(true);
   };
+
   return (
     <div id={product.id} className="card__Container">
       <div className="product__Img">
