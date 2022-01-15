@@ -11,19 +11,53 @@ function Product() {
   const Params = useParams();
   const catalog = Params.catalog;
   const [catalogData, setCatalogData] = useState();
+  const [renderData, setRenderData] = useState();
+
   const [loading, setLoading] = useState(true);
+  let checkBoxArr = [];
+  let sortedData;
+  let filterdData = catalogData;
+
   useEffect(async () => {
     await axios
       .get(`${apiURL}/${catalog.toLowerCase().replace(" ", "")}`)
       .then((res) => {
-        console.log(res.data);
+        setRenderData(res.data);
         setCatalogData(res.data);
       });
     setLoading(false);
+    console.log("effect");
   }, []);
 
+  const radioOnchange = (e) => {
+    let value = e.target.value;
+    if (value === "Low") {
+      sortedData = filterdData.sort((a, b) => a.reducedPrice - b.reducedPrice);
+    } else {
+      sortedData = filterdData.sort((a, b) => b.reducedPrice - a.reducedPrice);
+    }
+    setRenderData([...sortedData]);
+  };
+
+  const checkboxOnchange = (e) => {
+    let value = e.target.value;
+    if (e.target.checked) {
+      checkBoxArr.push(value);
+    } else {
+      checkBoxArr.splice(checkBoxArr.indexOf(value), 1);
+    }
+    checkBoxArr = checkBoxArr.sort((a, b) => a - b);
+    if (checkBoxArr.length > 0) {
+      filterdData = catalogData.filter((ele) => ele.rating > checkBoxArr[0]);
+      console.log(filterdData);
+    } else {
+      filterdData = catalogData;
+    }
+    setRenderData([...filterdData]);
+  };
+
   const renderProducts = () => {
-    let fragment = catalogData.map((ele) => {
+    let fragment = renderData.map((ele) => {
       return <Card product={ele} />;
     });
     return fragment;
@@ -44,26 +78,51 @@ function Product() {
             <div className="price__Filter">
               <p>Price:</p>
               <div>
-                <input type="radio" name="fav_language" value="Low" />{" "}
+                <input
+                  onChange={radioOnchange}
+                  type="radio"
+                  name="priceSort"
+                  value="Low"
+                />{" "}
                 <label htmlFor="">Low to High</label>
               </div>
               <div>
-                <input type="radio" name="fav_language" value="High" />{" "}
+                <input
+                  onChange={radioOnchange}
+                  type="radio"
+                  name="priceSort"
+                  value="High"
+                />{" "}
                 <label htmlFor="">High to Low</label>
               </div>
             </div>
             <div className="rating__Filter">
               <p>Rating:</p>
               <div>
-                <input type="checkbox" name="fav_language" value="4.5" />{" "}
+                <input
+                  onChange={checkboxOnchange}
+                  type="checkbox"
+                  name="ratingSort"
+                  value="4.5"
+                />
                 <label htmlFor="">Above 4.5</label>
               </div>
               <div>
-                <input type="checkbox" name="fav_language" value="4.0" />{" "}
+                <input
+                  onChange={checkboxOnchange}
+                  type="checkbox"
+                  name="ratingSort"
+                  value="4.0"
+                />{" "}
                 <label htmlFor="">Above 4.0</label>
               </div>
               <div>
-                <input type="checkbox" name="fav_language" value="3.0" />{" "}
+                <input
+                  onChange={checkboxOnchange}
+                  type="checkbox"
+                  name="ratingSort"
+                  value="3.0"
+                />{" "}
                 <label htmlFor="">Above 3.0</label>
               </div>
             </div>

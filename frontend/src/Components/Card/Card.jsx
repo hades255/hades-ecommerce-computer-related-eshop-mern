@@ -22,7 +22,7 @@ function Card({ product }) {
         <div
           className="product__Bgd"
           style={{
-            background: `url(${product.img})`,
+            backgroundImage: `url(${product.img})`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
@@ -37,8 +37,8 @@ function Card({ product }) {
         </detail>
         <detail>
           <h2 className="priceTag">
-            <span>₹{product.originalPrice}</span>
             <span>₹{product.reducedPrice}</span>
+            <span>₹{product.originalPrice}</span>
           </h2>
         </detail>
       </div>
