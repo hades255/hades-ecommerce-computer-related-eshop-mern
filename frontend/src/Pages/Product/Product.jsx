@@ -26,7 +26,6 @@ function Product() {
         setCatalogData(res.data);
       });
     setLoading(false);
-    console.log("effect");
   }, []);
 
   const radioOnchange = (e) => {
@@ -58,7 +57,7 @@ function Product() {
 
   const renderProducts = () => {
     let fragment = renderData.map((ele) => {
-      return <Card product={ele} />;
+      return <Card product={ele} catalog={catalog} />;
     });
     return fragment;
   };

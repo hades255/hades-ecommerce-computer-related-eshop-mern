@@ -18,7 +18,12 @@ function Home() {
     let fragment = (
       <div className="arrange__Cards">
         {data.map((ele) => {
-          return <Card product={ele} />;
+          return (
+            <Card
+              product={Object.values(ele)[0]}
+              catalog={Object.keys(ele)[0]}
+            />
+          );
         })}
       </div>
     );

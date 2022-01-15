@@ -67,8 +67,18 @@ app.get("/", async (req, res) => {
     const keyboard = await keyboardSC.find();
 
     let data = {
-      deals: [gpu[0], processor[0], monitor[0], keyboard[0]],
-      new: [cabinet[0], ram[0], mouse[0], processor[1]],
+      deals: [
+        { gpu: gpu[0] },
+        { processor: processor[0] },
+        { monitor: monitor[0] },
+        { keyboard: keyboard[0] },
+      ],
+      new: [
+        { cabinet: cabinet[0] },
+        { ram: ram[0] },
+        { mouse: mouse[0] },
+        { processor: processor[1] },
+      ],
     };
 
     res.json([data]);
@@ -140,9 +150,7 @@ app.get("/:catalog/:id", async (req, res) => {
 
     const item = await findModel(catalog).find({ id: req.params.id });
     if (item.length > 0) {
-      res.json({
-        message: item,
-      });
+      res.json(item);
     } else {
       res.json({
         message: "Item not found",
