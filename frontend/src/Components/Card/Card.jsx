@@ -18,7 +18,7 @@ function Card({ product, catalog }) {
 
   return (
     <div id={product.id} className="card__Container">
-      <div onClick={navigateToItem} className="product__Img">
+      <div className="product__Img">
         <div onClick={handleFavorite} className="fav">
           {isFavorite ? (
             <FavoriteIcon style={{ "font-size": "2rem" }} />
@@ -27,6 +27,7 @@ function Card({ product, catalog }) {
           )}
         </div>
         <div
+          onClick={navigateToItem}
           className="product__Bgd"
           style={{
             backgroundImage: `url(${product.img})`,

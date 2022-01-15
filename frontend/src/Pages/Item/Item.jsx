@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import apiURL from "../../Api";
 import Spinner from "../../Components/Spinner/Spinner";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function Item() {
   const Params = useParams();
@@ -19,6 +20,24 @@ function Item() {
     setLoading(false);
   }, []);
 
+  const renderComments = () => {
+    let cmtArr = itemData[0].comments;
+    console.log(cmtArr);
+    let fragment = cmtArr.map((ele) => {
+      return (
+        <div className="review__Container">
+          <AccountCircleIcon style={{ fontSize: "5rem" }} />{" "}
+          <span>{ele.name}</span>
+          <div>
+            <rating className="item__Rating">{ele.rating}</rating>
+          </div>
+          <div className="review__Content">{ele.Comment}</div>
+        </div>
+      );
+    });
+    return fragment;
+  };
+
   return (
     <div>
       {loading ? (
@@ -33,7 +52,6 @@ function Item() {
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
-                // position: "fixed",
               }}
             ></div>
             <div className="item__Description">
@@ -52,7 +70,10 @@ function Item() {
               </div>
             </div>
           </div>
-          <div className="item__Reviews"></div>
+          <div className="item__Reviews">
+            <h3>Customer Reviews</h3>
+            <div>{renderComments()}</div>
+          </div>
         </div>
       )}
     </div>

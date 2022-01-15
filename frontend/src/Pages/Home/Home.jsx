@@ -3,16 +3,23 @@ import "./Home.css";
 import Spinner from "../../Components/Spinner/Spinner";
 import Card from "../../Components/Card/Card";
 import { DataContext } from "../../Context/DataContext";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [loading, setLoading] = useState(true);
   const [homeData] = useContext(DataContext);
+  const Navigate = useNavigate();
 
   useEffect(async () => {
     if (homeData !== undefined) {
       setLoading(false);
     }
   }, [homeData]);
+
+  const navigateToPage = (catalog) => {
+    console.log(catalog);
+    Navigate(`/${catalog}`);
+  };
 
   const renderCards = (data) => {
     let fragment = (
@@ -36,6 +43,7 @@ function Home() {
       ) : (
         <div className="banner">
           <img
+            onClick={() => navigateToPage("processor")}
             src="https://www.primeabgb.com/wp-content/uploads/2021/12/Intel-12th-Gen.jpg"
             alt="banner"
           />
@@ -44,6 +52,7 @@ function Home() {
             {renderCards(homeData[0].deals)}
           </div>
           <img
+            onClick={() => navigateToPage("cabinet")}
             src="https://cdn.mdcomputers.in/image/catalog/2022/january/08-01-22/bundle-offer-for-gamers-1325xx300px.jpg"
             alt="banner"
           />

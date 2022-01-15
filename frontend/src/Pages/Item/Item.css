@@ -1,6 +1,7 @@
 .item__Container {
   width: 90%;
   margin: auto;
+  min-height: 100vh;
 }
 
 .item__Details {
@@ -8,11 +9,11 @@
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .item__Img {
-  width: 70rem;
+  width: 50rem;
   height: 50rem;
 }
 
@@ -61,4 +62,32 @@
   border-radius: 0.5rem;
   cursor: pointer;
   box-shadow: 0rem 0.5rem 1.5rem rgba(0, 0, 0, 0.452);
+}
+
+.item__Reviews {
+  margin-top: 2rem;
+  padding: 0.5rem;
+}
+
+.item__Reviews h3 {
+  font-size: 3rem;
+}
+
+.review__Container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.review__Container span {
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 0 0.5rem;
+}
+
+.review__Content {
+  font-size: 1.5rem;
+  padding-left: 1rem;
+  font-weight: 550;
 }
