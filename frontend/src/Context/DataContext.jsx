@@ -5,6 +5,7 @@ export const DataContext = createContext();
 
 export const DataProvider = (props) => {
   const [homeData, setHomeData] = useState();
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(async () => {
     let data = await fetch(apiURl).then((res) => res.json());
@@ -12,7 +13,7 @@ export const DataProvider = (props) => {
   }, []);
 
   return (
-    <DataContext.Provider value={[homeData]}>
+    <DataContext.Provider value={[homeData, loggedIn, setLoggedIn]}>
       {props.children}
     </DataContext.Provider>
   );

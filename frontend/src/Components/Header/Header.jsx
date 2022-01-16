@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Header.css";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
+import { DataContext } from "../../Context/DataContext";
 
 function Header() {
+  const [homeData, loggedIn, setLoggedIn] = useContext(DataContext);
+
   return (
     <div className="header__Container">
       <div className="header__Title">
@@ -20,7 +23,10 @@ function Header() {
 
         <div>
           <PersonIcon style={{ "font-size": "2.5rem" }} />
-          <Link style={{ textDecoration: "none" }} to="/account">
+          <Link
+            style={{ textDecoration: "none" }}
+            to={loggedIn ? "/account" : "/login"}
+          >
             <div style={{ padding: "0" }}>My Account</div>
           </Link>
         </div>

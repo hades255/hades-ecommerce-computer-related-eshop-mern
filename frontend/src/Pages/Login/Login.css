@@ -1,0 +1,81 @@
+.login__Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.login__Form {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 2rem;
+  justify-content: flex-start;
+  box-shadow: 0 0 4rem rgba(0, 0, 0, 0.5);
+  width: 30%;
+  border-radius: 0.5rem;
+}
+
+.login__Form div p {
+  font-size: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+.login__Form div {
+  padding: 1rem 0;
+}
+
+.login__Form div input {
+  padding: 1rem;
+  width: 100%;
+  font-size: 1.5rem;
+  border-radius: 0.2rem;
+  color: hsla(0, 0%, 0%, 0.664);
+  border: 1px solid rgba(0, 0, 0, 0.349);
+}
+
+.login__Form div input:focus {
+  outline: none;
+}
+
+.login__Form div h2 {
+  padding-top: 1rem;
+  font-size: 3rem;
+  text-align: center;
+  letter-spacing: 0.5rem;
+}
+
+.login__Button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__Button button {
+  background-color: #e41c1c;
+  color: white;
+  font-size: 2rem;
+  padding: 0.7rem 2.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0rem 0.5rem 1.5rem rgba(0, 0, 0, 0.452);
+}
+
+.login__Form div:first-child {
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.404);
+}
+
+.login__Form div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__Form div:last-child span {
+  font-size: 1.8rem;
+  padding: 0.3rem;
+}

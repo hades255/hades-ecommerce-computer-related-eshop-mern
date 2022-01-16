@@ -17,7 +17,6 @@ function Home() {
   }, [homeData]);
 
   const navigateToPage = (catalog) => {
-    console.log(catalog);
     Navigate(`/${catalog}`);
   };
 
