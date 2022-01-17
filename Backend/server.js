@@ -3,6 +3,7 @@ const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const {
+  accountSC,
   catalogSC,
   gpuSC,
   processorSC,
@@ -13,6 +14,7 @@ const {
   keyboardSC,
   monitorSC,
 } = require("./schema");
+const { hashPassword, checkPassword } = require("./bcrypt");
 
 let dburl =
   "mongodb+srv://<username>:<password>@vimalcluster.afqw9.mongodb.net/CJstores?retryWrites=true&w=majority";
@@ -65,6 +67,7 @@ app.get("/", async (req, res) => {
     const mouse = await mouseSC.find();
     const monitor = await monitorSC.find();
     const keyboard = await keyboardSC.find();
+    console.log("data");
 
     let data = {
       deals: [
@@ -89,12 +92,55 @@ app.get("/", async (req, res) => {
   }
 });
 
+// login endpoint
+
+app.post("/login", async (req, res) => {
+  try {
+    const user = await accountSC.findOne({ email: req.body.email });
+    if (user) {
+      console.log("exist");
+      try {
+        let result = await checkPassword(user.password, req.body.password);
+        if (result) {
+          res.send("success");
+        } else {
+          res.send("pwdError");
+        }
+      } catch (err) {
+        res.send("pwdError");
+      }
+    } else {
+      res.send("emailError");
+    }
+  } catch (err) {
+    res.json({
+      message: err,
+    });
+  }
+});
+
+app.post("/register", async (req, res) => {
+  try {
+    let user = await accountSC.findOne({ email: req.body.email });
+    if (user) {
+      res.send("exist");
+    } else {
+      let password = await hashPassword(req.body.password);
+      req.body.password = password;
+      let record = await accountSC.create(req.body);
+      res.send("success");
+    }
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 //catalog endpoint
 
 app.get("/catalog", async (req, res) => {
   try {
     const data = await catalogSC.find();
-    res.json([data]);
+    res.json([...data]);
   } catch (error) {
     res.json({
       message: error,
@@ -117,7 +163,7 @@ app.post("/catalog", async (req, res) => {
 
 //app endpoints
 
-app.post("/:catalog", async (req, res) => {
+app.post("/catalog/:catalog", async (req, res) => {
   try {
     let catalog = req.params.catalog;
     const gpu = await findModel(catalog).create(req.body);
@@ -131,10 +177,9 @@ app.post("/:catalog", async (req, res) => {
   }
 });
 
-app.get("/:catalog", async (req, res) => {
+app.get("/catalog/:catalog", async (req, res) => {
   try {
     let catalog = req.params.catalog;
-
     const data = await findModel(catalog).find();
     res.json(data);
   } catch (error) {
@@ -144,10 +189,9 @@ app.get("/:catalog", async (req, res) => {
   }
 });
 
-app.get("/:catalog/:id", async (req, res) => {
+app.get("/catalog/:catalog/:id", async (req, res) => {
   try {
     let catalog = req.params.catalog;
-
     const item = await findModel(catalog).find({ id: req.params.id });
     if (item.length > 0) {
       res.json(item);
@@ -158,12 +202,12 @@ app.get("/:catalog/:id", async (req, res) => {
     }
   } catch (error) {
     res.json({
-      message: error,
+      message: "error",
     });
   }
 });
 
-app.put("/:catalog/:id", async (req, res) => {
+app.put("/catalog/:catalog/:id", async (req, res) => {
   try {
     let catalog = req.params.catalog;
     const item = await findModel(catalog).findOneAndUpdate(
@@ -180,7 +224,7 @@ app.put("/:catalog/:id", async (req, res) => {
   }
 });
 
-app.delete("/:catalog/:id/:mail", async (req, res) => {
+app.delete("/catalog/:catalog/:id/:mail", async (req, res) => {
   try {
     let catalog = req.params.catalog;
     let email = req.params.mail;
@@ -194,6 +238,20 @@ app.delete("/:catalog/:id/:mail", async (req, res) => {
   } catch (err) {
     res.json({
       message: "err",
+    });
+  }
+});
+
+// account endpoint
+app.get("/account/:email", async (req, res) => {
+  try {
+    const data = await accountSC.findOne({ email: req.params.email });
+    res.json([data]);
+  } catch (error) {
+    console.log("catch");
+
+    res.json({
+      message: "error",
     });
   }
 });

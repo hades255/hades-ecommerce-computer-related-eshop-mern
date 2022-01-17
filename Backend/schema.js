@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
-const loginSchema = new mongoose.Schema({
+
+const accountSchema = new mongoose.Schema({
   username: { type: String, minlength: 3 },
   email: { type: String },
+  address: { type: String },
   password: { type: String },
+  orders: { type: Array },
+  wishlist: { type: Array },
 });
 
 const catalogSchema = new mongoose.Schema({
@@ -20,6 +24,7 @@ const productSchema = new mongoose.Schema({
   comments: { type: Array },
 });
 
+const accountSC = mongoose.model("accountSC", accountSchema, "Accounts");
 const catalogSC = mongoose.model("catalogSC", catalogSchema, "Catalog");
 const gpuSC = mongoose.model("gpuSC", productSchema, "GPU");
 const processorSC = mongoose.model("processorSC", productSchema, "Processor");
@@ -31,6 +36,7 @@ const keyboardSC = mongoose.model("keyboardSC", productSchema, "KeyBoard");
 const monitorSC = mongoose.model("monitorSC", productSchema, "Monitor");
 
 module.exports = {
+  accountSC,
   catalogSC,
   gpuSC,
   processorSC,

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function CatalogCard({ detail }) {
   const navigate = useNavigate();
   const navigateToCatalog = () => {
-    navigate(`/${detail.name}`);
+    navigate(`/catalog/${detail.name}`);
   };
   return (
     <div onClick={navigateToCatalog} className="card__Container">

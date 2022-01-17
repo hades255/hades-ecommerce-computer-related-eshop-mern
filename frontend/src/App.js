@@ -7,6 +7,7 @@ import Product from "./Pages/Product/Product";
 import Item from "./Pages/Item/Item";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Login/Register";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
                 <>
                   <Header />
                   <Home />
+                  <Footer />
                 </>
               }
             />
@@ -29,25 +31,27 @@ function App() {
                 <>
                   <Header />
                   <Catalog />
+                  <Footer />
                 </>
               }
             />
             <Route
-              path="/:catalog"
+              path="/catalog/:catalog"
               element={
                 <>
                   <Header />
-
                   <Product />
+                  <Footer />
                 </>
               }
             />
             <Route
-              path="/:catalog/:id"
+              path="/catalog/:catalog/:id"
               element={
                 <>
                   <Header />
                   <Item />
+                  <Footer />
                 </>
               }
             />

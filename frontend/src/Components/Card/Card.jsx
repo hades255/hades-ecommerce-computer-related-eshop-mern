@@ -9,7 +9,7 @@ function Card({ product, catalog }) {
   const navigate = useNavigate();
 
   const navigateToItem = () => {
-    navigate(`/${catalog}/${product.id}`);
+    navigate(`/catalog/${catalog}/${product.id}`);
   };
 
   const handleFavorite = () => {

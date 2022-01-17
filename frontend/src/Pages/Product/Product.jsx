@@ -20,7 +20,7 @@ function Product() {
 
   useEffect(async () => {
     await axios
-      .get(`${apiURL}/${catalog.toLowerCase().replace(" ", "")}`)
+      .get(`${apiURL}/catalog/${catalog.toLowerCase().replace(" ", "")}`)
       .then((res) => {
         setRenderData(res.data);
         setCatalogData(res.data);

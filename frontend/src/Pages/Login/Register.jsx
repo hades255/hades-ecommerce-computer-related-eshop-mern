@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Login.css";
 
 function Register() {
+  const [error, setError] = useState("null");
+
+  const validateCred = (event) => {
+    event.preventDefault();
+    let email = document.getElementById("email").value;
+    let pass = document.getElementById("pass").value;
+    let regexE = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let regexP = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+    regexE.test(email)
+      ? setError("email")
+      : regexP.test(pass)
+      ? setError("pass")
+      : setError("null");
+  };
   return (
     <div className="login__Container">
       <div className="login__Form">

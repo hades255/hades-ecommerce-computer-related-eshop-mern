@@ -10,6 +10,7 @@ function Catalog() {
   const [loading, setLoading] = useState(true);
   useEffect(async () => {
     await axios.get(`${apiURL}/catalog`).then((res) => {
+      console.log(res.data);
       setDetails(res.data);
     });
     setLoading(false);
@@ -18,7 +19,7 @@ function Catalog() {
   const renderCatalog = () => {
     let fragment = (
       <div className="catalog__Bottom">
-        {details[0].map((ele) => {
+        {details.map((ele) => {
           return <CatalogCard detail={ele} />;
         })}
       </div>
@@ -33,7 +34,7 @@ function Catalog() {
         <div className="catalog_Container">
           <div className="catalog__Top">
             <h2>Catalog</h2>
-            <p>{details[0].length} items</p>
+            <p>{details.length} items</p>
           </div>
           {renderCatalog()}
         </div>

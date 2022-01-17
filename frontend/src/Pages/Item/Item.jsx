@@ -14,7 +14,7 @@ function Item() {
   const [itemData, setItemData] = useState();
 
   useEffect(async () => {
-    await axios.get(`${apiURL}/${catalog}/${id}`).then((res) => {
+    await axios.get(`${apiURL}/catalog/${catalog}/${id}`).then((res) => {
       setItemData(res.data);
     });
     setLoading(false);
