@@ -1,11 +1,9 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import apiURl from "../../Api";
-import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 import "./Login.css";
-import { Email } from "@mui/icons-material";
 
 function Login() {
   const [

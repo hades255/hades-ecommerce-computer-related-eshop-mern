@@ -20,7 +20,6 @@ export const DataProvider = (props) => {
       );
       setUserData(account);
     }
-    console.log(userData, "context");
     setCartData(userData.cart ? [...userData.cart].length : 0);
   }, []);
 
