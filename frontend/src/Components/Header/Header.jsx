@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 
 function Header() {
-  const [homeData, loggedIn, setLoggedIn] = useContext(DataContext);
+  const [homeData, loggedIn, setLoggedIn, user, setUser, userData] =
+    useContext(DataContext);
+  console.log(userData, "header");
 
   return (
     <div className="header__Container">
@@ -25,13 +27,15 @@ function Header() {
           <PersonIcon style={{ "font-size": "2.5rem" }} />
           <Link
             style={{ textDecoration: "none" }}
-            to={loggedIn ? "/account" : "/login"}
+            to={user ? "/account" : "/login"}
           >
-            <div style={{ padding: "0" }}>My Account</div>
+            <div style={{ padding: "0" }}>
+              {user ? (userData[0] ? userData[0].username : "User") : "Login"}
+            </div>
           </Link>
         </div>
         <div>
-          <ShoppingCartOutlinedIcon style={{ "font-size": "2.5rem" }} /> Cart
+          <ShoppingCartOutlinedIcon style={{ "font-size": "2.5rem" }} /> 0
         </div>
       </div>
     </div>

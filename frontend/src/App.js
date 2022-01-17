@@ -56,6 +56,14 @@ function App() {
               }
             />
             <Route
+              path="/account"
+              element={
+                <>
+                  <Header />
+                </>
+              }
+            />
+            <Route
               path="/login"
               element={
                 <>

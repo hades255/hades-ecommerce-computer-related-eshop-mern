@@ -6,7 +6,7 @@ const accountSchema = new mongoose.Schema({
   address: { type: String },
   password: { type: String },
   orders: { type: Array },
-  wishlist: { type: Array },
+  cart: { type: Array },
 });
 
 const catalogSchema = new mongoose.Schema({

@@ -1,12 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import apiURl from "../../Api";
 import { useNavigate } from "react-router-dom";
-
+import { DataContext } from "../../Context/DataContext";
 import "./Login.css";
 
 function Login() {
+  const [
+    homeData,
+    loggedIn,
+    setLoggedIn,
+    user,
+    setUser,
+    userData,
+    setUserData,
+  ] = useContext(DataContext);
   const [validate, setValidate] = useState("null");
   let navigate = useNavigate();
 
@@ -20,9 +29,13 @@ function Login() {
     };
     await axios
       .post(`${apiURl}/login`, obj)
-      .then((res) => {
+      .then(async (res) => {
         if (res.data === "success") {
-          console.log(res.data);
+          localStorage.setItem("cjuser", email);
+          await axios.get(`${apiURl}/account/${email}`).then((res) => {
+            setUserData(res.data);
+          });
+          setUser(true);
           navigate("/");
         } else {
           setValidate(res.data);

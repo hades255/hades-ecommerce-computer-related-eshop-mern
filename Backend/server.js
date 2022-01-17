@@ -67,7 +67,6 @@ app.get("/", async (req, res) => {
     const mouse = await mouseSC.find();
     const monitor = await monitorSC.find();
     const keyboard = await keyboardSC.find();
-    console.log("data");
 
     let data = {
       deals: [
@@ -98,7 +97,6 @@ app.post("/login", async (req, res) => {
   try {
     const user = await accountSC.findOne({ email: req.body.email });
     if (user) {
-      console.log("exist");
       try {
         let result = await checkPassword(user.password, req.body.password);
         if (result) {
@@ -248,8 +246,6 @@ app.get("/account/:email", async (req, res) => {
     const data = await accountSC.findOne({ email: req.params.email });
     res.json([data]);
   } catch (error) {
-    console.log("catch");
-
     res.json({
       message: "error",
     });
