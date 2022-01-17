@@ -6,10 +6,15 @@ import { Link } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 
 function Header() {
-  const [homeData, loggedIn, setLoggedIn, user, setUser, userData] =
-    useContext(DataContext);
-  console.log(userData, "header");
-
+  const [
+    homeData,
+    user,
+    setUser,
+    userData,
+    setUserData,
+    cartData,
+    setCartData,
+  ] = useContext(DataContext);
   return (
     <div className="header__Container">
       <div className="header__Title">
@@ -24,7 +29,8 @@ function Header() {
         </Link>
 
         <div>
-          <PersonIcon style={{ "font-size": "2.5rem" }} />
+          {user ? <PersonIcon style={{ fontSize: "2.5rem" }} /> : ""}
+
           <Link
             style={{ textDecoration: "none" }}
             to={user ? "/account" : "/login"}
@@ -35,7 +41,8 @@ function Header() {
           </Link>
         </div>
         <div>
-          <ShoppingCartOutlinedIcon style={{ "font-size": "2.5rem" }} /> 0
+          <ShoppingCartOutlinedIcon style={{ "font-size": "2.5rem" }} />
+          <>{cartData}</>
         </div>
       </div>
     </div>

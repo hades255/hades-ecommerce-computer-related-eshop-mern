@@ -7,8 +7,15 @@ import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [loading, setLoading] = useState(true);
-  const [homeData, loggedIn, setLoggedIn, user, setUser, userData] =
-    useContext(DataContext);
+  const [
+    homeData,
+    user,
+    setUser,
+    userData,
+    setUserData,
+    cartData,
+    setCartData,
+  ] = useContext(DataContext);
   const Navigate = useNavigate();
 
   useEffect(async () => {
@@ -18,7 +25,7 @@ function Home() {
   }, [homeData]);
 
   const navigateToPage = (catalog) => {
-    Navigate(`/${catalog}`);
+    Navigate(`/catalog/${catalog}`);
   };
 
   const renderCards = (data) => {

@@ -1,15 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Card.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { useNavigate } from "react-router-dom";
+import { DataContext } from "../../Context/DataContext";
 
 function Card({ product, catalog }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [
+    homeData,
+    user,
+    setUser,
+    userData,
+    setUserData,
+    cartData,
+    setCartData,
+  ] = useContext(DataContext);
   const navigate = useNavigate();
 
   const navigateToItem = () => {
     navigate(`/catalog/${catalog}/${product.id}`);
+  };
+
+  const addCart = () => {
+    if (user) {
+      setCartData(cartData + 1);
+    } else {
+      navigate("/login");
+    }
   };
 
   const handleFavorite = () => {
@@ -41,7 +59,7 @@ function Card({ product, catalog }) {
         <h3 onClick={navigateToItem}>{product.name}</h3>
         <detail>
           <rating className="rating">{product.rating}</rating>
-          <button>Add</button>
+          <button onClick={addCart}>Add</button>
         </detail>
         <detail>
           <h2 className="priceTag">

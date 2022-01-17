@@ -5,43 +5,52 @@ import apiURl from "../../Api";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 import "./Login.css";
+import { Email } from "@mui/icons-material";
 
 function Login() {
   const [
     homeData,
-    loggedIn,
-    setLoggedIn,
     user,
     setUser,
     userData,
     setUserData,
+    cartData,
+    setCartData,
   ] = useContext(DataContext);
   const [validate, setValidate] = useState("null");
+  const [fetching, setFetching] = useState(false);
   let navigate = useNavigate();
 
   const validateCred = async (event) => {
     event.preventDefault();
     let email = document.getElementById("email").value;
     let pass = document.getElementById("pass").value;
-    let obj = {
-      email: email,
-      password: pass,
-    };
-    await axios
-      .post(`${apiURl}/login`, obj)
-      .then(async (res) => {
-        if (res.data === "success") {
-          localStorage.setItem("cjuser", email);
-          await axios.get(`${apiURl}/account/${email}`).then((res) => {
-            setUserData(res.data);
-          });
-          setUser(true);
-          navigate("/");
-        } else {
-          setValidate(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
+    if (email && pass) {
+      let obj = {
+        email: email,
+        password: pass,
+      };
+      setFetching(true);
+      await axios
+        .post(`${apiURl}/login`, obj)
+        .then(async (res) => {
+          if (res.data === "success") {
+            localStorage.setItem("cjuser", email);
+            let account = await fetch(`${apiURl}/account/${email}`).then(
+              (res) => res.json()
+            );
+            setUserData([...account]);
+            setUser(true);
+            navigate("/");
+          } else {
+            setValidate(res.data);
+          }
+        })
+        .catch((err) => console.log(err));
+      setFetching(false);
+    } else {
+      setValidate("missing");
+    }
   };
 
   return (
@@ -71,12 +80,18 @@ function Login() {
                 ? "Account not found. Kindly register"
                 : validate === "pwdError"
                 ? "Incorrect Password"
+                : validate === "missing"
+                ? "Enter all the required field"
                 : ""}
             </p>
           </div>
           <div className="login__Button">
-            <button onClick={validateCred} value="">
-              Login
+            <button
+              onClick={fetching ? () => {} : validateCred}
+              style={{ cursor: fetching ? "not-allowed" : "pointer" }}
+              value=""
+            >
+              {fetching ? "......." : "Login"}
             </button>
           </div>
           <div>

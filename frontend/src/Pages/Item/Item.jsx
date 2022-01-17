@@ -1,17 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Item.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import apiURL from "../../Api";
 import Spinner from "../../Components/Spinner/Spinner";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { DataContext } from "../../Context/DataContext";
 
 function Item() {
   const Params = useParams();
+  const navigate = useNavigate();
   const catalog = Params.catalog.toLowerCase().replace(" ", "");
   const id = Params.id;
   const [loading, setLoading] = useState(true);
   const [itemData, setItemData] = useState();
+  const [
+    homeData,
+    user,
+    setUser,
+    userData,
+    setUserData,
+    cartData,
+    setCartData,
+  ] = useContext(DataContext);
 
   useEffect(async () => {
     await axios.get(`${apiURL}/catalog/${catalog}/${id}`).then((res) => {
@@ -20,6 +31,13 @@ function Item() {
     setLoading(false);
   }, []);
 
+  const addCart = () => {
+    if (user) {
+      setCartData(cartData + 1);
+    } else {
+      navigate("/login");
+    }
+  };
   const renderComments = () => {
     let cmtArr = itemData[0].comments;
     console.log(cmtArr);
@@ -66,7 +84,7 @@ function Item() {
                 <span>₹{itemData[0].originalPrice}</span>
               </div>
               <div className="item__Button">
-                <button>Add to Cart</button>
+                <button onClick={addCart}>Add to Cart</button>
               </div>
             </div>
           </div>
