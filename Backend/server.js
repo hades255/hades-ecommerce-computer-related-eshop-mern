@@ -134,7 +134,6 @@ app.post("/register", async (req, res) => {
 });
 
 //catalog endpoint
-
 app.get("/catalog", async (req, res) => {
   try {
     const data = await catalogSC.find();
@@ -252,5 +251,24 @@ app.get("/account/:email", async (req, res) => {
   }
 });
 
+app.put("/account/:email/cart", async (req, res) => {
+  try {
+    const item = await accountSC.find({
+      email: req.params.email,
+      cart: { $elemMatch: { id: req.body.id } },
+    });
+    if (item.length > 0) {
+      res.json("exist");
+    } else {
+      const push = await accountSC.findOneAndUpdate(
+        { email: req.params.email },
+        { $push: { cart: req.body } }
+      );
+      res.json("success");
+    }
+  } catch (err) {
+    res.json(err);
+  }
+});
 //port
 app.listen(3001, () => console.log("server is running"));

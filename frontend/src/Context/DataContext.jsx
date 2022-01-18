@@ -5,7 +5,6 @@ export const DataContext = createContext();
 
 export const DataProvider = (props) => {
   const [homeData, setHomeData] = useState();
-  // const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(localStorage.getItem("cjuser"));
   const [userData, setUserData] = useState([]);
   const [cartData, setCartData] = useState(0);
@@ -18,9 +17,8 @@ export const DataProvider = (props) => {
       let account = await fetch(`${apiURl}/account/${user}`).then((res) =>
         res.json()
       );
-      setUserData(account);
+      await setUserData([...account]);
     }
-    setCartData(userData.cart ? [...userData.cart].length : 0);
   }, []);
 
   return (

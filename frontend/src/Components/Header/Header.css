@@ -46,3 +46,16 @@
   align-items: center;
   cursor: pointer;
 }
+
+.navigation__Menus div:last-child span {
+  color: white;
+  background-color: #e41c1c;
+  height: 2.7rem;
+  width: 2.7rem;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

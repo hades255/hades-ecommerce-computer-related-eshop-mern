@@ -38,7 +38,8 @@ function Login() {
               (res) => res.json()
             );
             setUserData([...account]);
-            setUser(true);
+            setUser(email);
+            setCartData(userData[0].cart ? [...userData[0].cart].length : 0);
             navigate("/");
           } else {
             setValidate(res.data);

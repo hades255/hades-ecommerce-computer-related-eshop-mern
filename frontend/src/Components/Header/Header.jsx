@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./Header.css";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PersonIcon from "@mui/icons-material/Person";
@@ -15,6 +15,11 @@ function Header() {
     cartData,
     setCartData,
   ] = useContext(DataContext);
+  useEffect(() => {
+    console.log("he");
+    setCartData(userData[0] ? [...userData[0].cart].length : 0);
+  }, [userData]);
+
   return (
     <div className="header__Container">
       <div className="header__Title">
@@ -42,7 +47,7 @@ function Header() {
         </div>
         <div>
           <ShoppingCartOutlinedIcon style={{ "font-size": "2.5rem" }} />
-          <>{cartData}</>
+          <span>{cartData}</span>
         </div>
       </div>
     </div>

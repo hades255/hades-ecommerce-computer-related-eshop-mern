@@ -31,9 +31,16 @@ function Item() {
     setLoading(false);
   }, []);
 
-  const addCart = () => {
+  const addCart = async () => {
     if (user) {
-      setCartData(cartData + 1);
+      await axios
+        .put(`${apiURL}/account/${user}/cart`, itemData)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data === "success") {
+            setCartData(cartData + 1);
+          }
+        });
     } else {
       navigate("/login");
     }

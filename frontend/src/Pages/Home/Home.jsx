@@ -30,7 +30,7 @@ function Home() {
 
   const renderCards = (data) => {
     let fragment = (
-      <div className="arrange__Cards">
+      <div style={{ marginTop: "1.5rem" }} className="arrange__Cards">
         {data.map((ele) => {
           return (
             <Card
@@ -48,13 +48,13 @@ function Home() {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="banner">
+        <div style={{ marginTop: "1.5rem" }} className="banner">
           <img
             onClick={() => navigateToPage("processor")}
             src="https://www.primeabgb.com/wp-content/uploads/2021/12/Intel-12th-Gen.jpg"
             alt="banner"
           />
-          <div className="home__Products">
+          <div style={{ marginTop: "1.5rem" }} className="home__Products">
             <p>Today's Deals</p>
             {renderCards(homeData[0].deals)}
           </div>
@@ -63,7 +63,7 @@ function Home() {
             src="https://cdn.mdcomputers.in/image/catalog/2022/january/08-01-22/bundle-offer-for-gamers-1325xx300px.jpg"
             alt="banner"
           />
-          <div className="home__Products">
+          <div style={{ marginTop: "1.5rem" }} className="home__Products">
             <p>New Arrivals</p>
             {renderCards(homeData[0].new)}
           </div>
