@@ -251,6 +251,15 @@ app.get("/account/:email", async (req, res) => {
   }
 });
 
+app.get("/account/:email/cart", async (req, res) => {
+  try {
+    const account = await accountSC.find({ email: req.params.email });
+    res.json(account[0].cart);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 app.put("/account/:email/cart", async (req, res) => {
   try {
     const item = await accountSC.find({
@@ -270,5 +279,22 @@ app.put("/account/:email/cart", async (req, res) => {
     res.json(err);
   }
 });
+
+app.delete("/account/:email/cart/:id", async (req, res) => {
+  try {
+    const item = await accountSC.findOneAndUpdate(
+      { email: req.params.email },
+      { $pull: { cart: { id: parseInt(req.params.id) } } }
+    );
+    res.json({
+      message: "Item deleated",
+    });
+  } catch (err) {
+    res.json({
+      message: "err",
+    });
+  }
+});
+
 //port
 app.listen(3001, () => console.log("server is running"));
