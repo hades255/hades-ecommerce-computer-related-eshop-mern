@@ -16,29 +16,39 @@ function Cart() {
     cartData,
     setCartData,
   ] = useContext(DataContext);
-  console.log(userData);
 
   const [cart, setCart] = useState();
+  const [reRender, setReRender] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
     await axios.get(`${apiURL}/account/${user}/cart`).then((res) => {
-      console.log(res.data);
       setCart(res.data);
       if (userData.length > 0) {
         setLoading(false);
       }
     });
-  }, [userData]);
+  }, [userData, reRender]);
+
+  const handleReRender = () => {
+    setReRender(!reRender);
+    setCartData(cartData - 1);
+  };
 
   const renderItems = () => {
     if (cart.length === 0) {
-      return <h2>No Items added</h2>;
+      return (
+        <h2 style={{ fontSize: "3rem", padding: "2rem", textAlign: "center" }}>
+          No Items added
+        </h2>
+      );
     } else {
       return (
         <div className="cart__Items">
           {cart.map((ele) => {
-            return <CartCard item={ele} />;
+            return (
+              <CartCard user={user} onReRender={handleReRender} item={ele} />
+            );
           })}
         </div>
       );
@@ -68,7 +78,7 @@ function Cart() {
               </div>
               <div className="values">
                 <span>Price:</span>
-                <span>₹{cart[0].reducedPrice}</span>
+                <span>₹{cart.length > 0 ? cart[0].reducedPrice : "0"}</span>
               </div>
               <div className="address">
                 <span>Shipping Address:</span>

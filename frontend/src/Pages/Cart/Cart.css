@@ -7,11 +7,22 @@
   margin-top: 3rem;
   width: 90%;
 }
+.deleteBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1.5rem;
+}
+
+.cart__Left {
+  min-width: 60%;
+}
 
 .cart__Left,
 .cart__Right {
   border-radius: 0.5rem;
   box-shadow: 0 0 3rem rgba(88, 88, 88, 0.555);
+  margin-bottom: 3rem;
 }
 
 .cart__Container div h1 {
@@ -76,6 +87,7 @@
 .cartButton button {
   color: #ffffff;
   background-color: #e41c1c;
+
   border: none;
   font-size: 2rem;
   font-weight: 800;

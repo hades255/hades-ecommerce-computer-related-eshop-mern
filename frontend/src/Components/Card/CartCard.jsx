@@ -1,15 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
+import apiURL from "../../Api";
 
-function CartCard({ item }) {
+function CartCard({ user, onReRender, item }) {
   const [itemCount, setItemCount] = useState(1);
-  const changeCount = (operation) => {
+  const [total, setTotal] = useState(item.reducedPrice);
+
+  useEffect(() => {
+    setTotal(itemCount * item.reducedPrice);
+  }, [itemCount]);
+
+  const changeCount = async (operation) => {
     if (operation === "-") {
-      setItemCount(itemCount - 1);
+      if (itemCount === 1) {
+        deleteItem();
+      } else {
+        setItemCount(itemCount - 1);
+      }
     } else {
       setItemCount(itemCount + 1);
     }
   };
-  console.log(item);
+
+  const deleteItem = async () => {
+    await axios.delete(`${apiURL}/account/${user}/cart/${item.id}`);
+    onReRender();
+  };
+
   return (
     <div className="cartCard__Container">
       <div
@@ -27,14 +45,27 @@ function CartCard({ item }) {
         </div>
         <div className="cartItem__Bottom">
           <div className="cartButton">
-            <button onClick={() => changeCount("-")}>-</button>
+            <button id="minusBtn" onClick={() => changeCount("-")}>
+              -
+            </button>
             <span>{itemCount}</span>
             <button onClick={() => changeCount("+")}>+</button>
           </div>
           <div className="priceDetail">
-            <span>₹{itemCount * item.reducedPrice}</span>
+            <span>₹{total}</span>
           </div>
         </div>
+      </div>
+      <div className="deleteBtn">
+        <DeleteIcon
+          onClick={deleteItem}
+          style={{
+            fontSize: "3rem",
+            color: "#f77171",
+            borderLeft: " 0.2rem solid #cbcbcb",
+            cursor: "pointer",
+          }}
+        />
       </div>
     </div>
   );
