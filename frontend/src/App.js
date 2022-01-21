@@ -8,6 +8,7 @@ import Item from "./Pages/Item/Item";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Login/Register";
 import Footer from "./Components/Footer/Footer";
+import Cart from "./Pages/Cart/Cart";
 
 function App() {
   return (
@@ -60,6 +61,15 @@ function App() {
               element={
                 <>
                   <Header />
+                </>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <>
+                  <Header />
+                  <Cart />
                 </>
               }
             />

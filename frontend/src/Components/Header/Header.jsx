@@ -16,7 +16,6 @@ function Header() {
     setCartData,
   ] = useContext(DataContext);
   useEffect(() => {
-    console.log("he");
     setCartData(userData[0] ? [...userData[0].cart].length : 0);
   }, [userData]);
 
@@ -46,8 +45,20 @@ function Header() {
           </Link>
         </div>
         <div>
-          <ShoppingCartOutlinedIcon style={{ "font-size": "2.5rem" }} />
-          <span>{cartData}</span>
+          <Link
+            style={{
+              textDecoration: "none",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            to={user ? "/cart" : "/login"}
+          >
+            <ShoppingCartOutlinedIcon
+              style={{ fontSize: "2.5rem", color: "#5f5f5f" }}
+            />
+            <span>{cartData}</span>
+          </Link>
         </div>
       </div>
     </div>

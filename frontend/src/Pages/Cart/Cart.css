@@ -1,0 +1,124 @@
+.cart__Container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  margin: auto;
+  margin-top: 3rem;
+  width: 90%;
+}
+
+.cart__Left,
+.cart__Right {
+  border-radius: 0.5rem;
+  box-shadow: 0 0 3rem rgba(88, 88, 88, 0.555);
+}
+
+.cart__Container div h1 {
+  font-size: 4rem;
+  color: #5f5f5f;
+  padding: 2rem;
+  text-align: left;
+  letter-spacing: 0.2rem;
+  border-bottom: 0.2rem solid #cbcbcb;
+}
+
+.cart__Items {
+  display: flex;
+  flex-direction: column;
+}
+
+.cartCard__Container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.cartItem__Img {
+  width: 20rem;
+  height: 20rem;
+}
+
+.cartItem__Details {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.cartItem__Name h2 {
+  font-size: 1.8rem;
+  color: #5f5f5f;
+}
+
+.cartItem__Bottom {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.priceDetail span {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.cartButton {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-top: 1px solid #cbcbcb;
+  border-bottom: 1px solid #cbcbcb;
+  width: fit-content;
+}
+
+.cartButton button {
+  color: #ffffff;
+  background-color: #e41c1c;
+  border: none;
+  font-size: 2rem;
+  font-weight: 800;
+  padding: 0.5rem 1.5rem;
+}
+.cartButton span {
+  padding: 0 2rem;
+  font-size: 1.5rem;
+}
+.values {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.address {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+.values span,
+.address span {
+  font-size: 2rem;
+}
+
+.values span:last-child,
+.address span:last-child {
+  font-weight: 900;
+}
+
+.orderButton {
+  display: flex;
+  margin: 2rem 0;
+}
+
+.orderButton button {
+  margin: auto;
+  font-size: 2rem;
+  padding: 0.5rem 2rem;
+  color: #ffffff;
+  background-color: #e41c1c;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0px 5px 1rem rgba(88, 88, 88, 0.555);
+}
