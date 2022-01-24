@@ -6,6 +6,7 @@ import apiURL from "../../Api";
 function CartCard({ user, onReRender, item }) {
   const [itemCount, setItemCount] = useState(1);
   const [total, setTotal] = useState(item.reducedPrice);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     setTotal(itemCount * item.reducedPrice);
@@ -24,12 +25,18 @@ function CartCard({ user, onReRender, item }) {
   };
 
   const deleteItem = async () => {
+    setDeleting(true);
     await axios.delete(`${apiURL}/account/${user}/cart/${item.id}`);
     onReRender();
+    setDeleting(false);
   };
 
   return (
-    <div className="cartCard__Container">
+    <div
+      className={
+        deleting ? "cartCard__Container blurCard" : "cartCard__Container"
+      }
+    >
       <div
         style={{
           backgroundImage: `url(${item.img})`,

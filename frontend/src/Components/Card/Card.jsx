@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Card({ product, catalog }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [
     homeData,
@@ -36,15 +37,18 @@ function Card({ product, catalog }) {
   };
 
   const addCart = async () => {
+    console.log("loading");
     if (user) {
+      setLoading(true);
+
       await axios.put(`${apiURL}/account/${user}/cart`, product).then((res) => {
-        console.log(res.data);
         if (res.data === "success") {
           toastMsg("success");
           setCartData(cartData + 1);
         } else {
           toastMsg("exist");
         }
+        setLoading(false);
       });
     } else {
       navigate("/login");
@@ -96,7 +100,16 @@ function Card({ product, catalog }) {
         <h3 onClick={navigateToItem}>{product.name}</h3>
         <detail>
           <rating className="rating">{product.rating}</rating>
-          <button onClick={addCart}>Add</button>
+          <button
+            style={
+              loading
+                ? { pointerEvents: "none", opacity: "60%" }
+                : { pointerEvents: "all" }
+            }
+            onClick={addCart}
+          >
+            {loading ? "....." : "Add"}
+          </button>
         </detail>
         <detail>
           <h2 className="priceTag">

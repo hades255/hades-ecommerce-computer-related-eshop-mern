@@ -46,6 +46,10 @@
   padding: 2rem;
 }
 
+.blurCard {
+  filter: blur(10px);
+}
+
 .cartItem__Img {
   width: 20rem;
   height: 20rem;
