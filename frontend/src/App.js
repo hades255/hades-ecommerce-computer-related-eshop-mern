@@ -70,6 +70,7 @@ function App() {
                 <>
                   <Header />
                   <Cart />
+                  <Footer />
                 </>
               }
             />
