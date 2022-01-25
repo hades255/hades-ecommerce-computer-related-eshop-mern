@@ -72,7 +72,7 @@ function Card({ product, catalog }) {
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        theme="light"
+        theme="dark"
         pauseOnFocusLoss
         draggable
       />

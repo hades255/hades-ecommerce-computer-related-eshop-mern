@@ -14,9 +14,9 @@ function Product() {
   const [renderData, setRenderData] = useState();
 
   const [loading, setLoading] = useState(true);
-  let checkBoxArr = [];
-  let sortedData;
-  let filterdData = catalogData;
+  const [radVal, setRadVal] = useState("default");
+  const [checkVal, setCheckVal] = useState(0);
+  const [checkBoxArr, setCheckBoxArr] = useState([]);
 
   useEffect(async () => {
     await axios
@@ -28,31 +28,40 @@ function Product() {
     setLoading(false);
   }, []);
 
-  const radioOnchange = (e) => {
-    let value = e.target.value;
-    if (value === "Low") {
-      sortedData = filterdData.sort((a, b) => a.reducedPrice - b.reducedPrice);
-    } else {
-      sortedData = filterdData.sort((a, b) => b.reducedPrice - a.reducedPrice);
+  useEffect(() => {
+    if (catalogData) {
+      changeData();
     }
-    setRenderData([...sortedData]);
+  }, [radVal, checkVal]);
+
+  const radioOnchange = (e) => {
+    setRadVal(e.target.value);
   };
 
   const checkboxOnchange = (e) => {
     let value = e.target.value;
+    let arr = checkBoxArr;
     if (e.target.checked) {
-      checkBoxArr.push(value);
+      arr.push(value);
     } else {
-      checkBoxArr.splice(checkBoxArr.indexOf(value), 1);
+      arr.splice(checkBoxArr.indexOf(value), 1);
     }
-    checkBoxArr = checkBoxArr.sort((a, b) => a - b);
-    if (checkBoxArr.length > 0) {
-      filterdData = catalogData.filter((ele) => ele.rating > checkBoxArr[0]);
-      console.log(filterdData);
+    arr = arr.sort((a, b) => a - b);
+    setCheckBoxArr([...arr]);
+    setCheckVal(checkBoxArr[0] ? checkBoxArr[0] : 0);
+  };
+
+  const changeData = () => {
+    let sortedData;
+    let filterData = catalogData.filter((ele) => ele.rating > checkVal);
+    if (radVal === "Low") {
+      sortedData = filterData.sort((a, b) => a.reducedPrice - b.reducedPrice);
+    } else if (radVal === "High") {
+      sortedData = filterData.sort((a, b) => b.reducedPrice - a.reducedPrice);
     } else {
-      filterdData = catalogData;
+      sortedData = filterData;
     }
-    setRenderData([...filterdData]);
+    setRenderData([...sortedData]);
   };
 
   const renderProducts = () => {
