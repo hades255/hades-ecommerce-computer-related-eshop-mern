@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataContext } from "../../Context/DataContext";
-
 import axios from "axios";
 import apiURL from "../../Api";
 
-function CartCard({ onReRender, item }) {
+function CartCard({ onReRender, item, handleFinal }) {
   const [itemCount, setItemCount] = useState(1);
   const [total, setTotal] = useState(item.reducedPrice);
   const [deleting, setDeleting] = useState(false);
+  const [runUseEffect, setRunUseEffect] = useState(false);
   const [
     homeData,
     user,
@@ -23,11 +23,13 @@ function CartCard({ onReRender, item }) {
 
   useEffect(() => {
     setTotal(itemCount * item.reducedPrice);
-  }, [itemCount]);
+    sendData();
+  }, [itemCount, runUseEffect]);
 
   const changeCount = async (operation) => {
     if (operation === "-") {
       if (itemCount === 1) {
+        setRunUseEffect(!runUseEffect);
         deleteItem();
       } else {
         setItemCount(itemCount - 1);
@@ -37,11 +39,20 @@ function CartCard({ onReRender, item }) {
     }
   };
 
+  const sendData = () => {
+    handleFinal({
+      id: item.id,
+      total: itemCount * item.reducedPrice,
+      count: itemCount,
+      product: item,
+    });
+  };
+
   const deleteItem = async () => {
     setDeleting(true);
     await axios.delete(`${apiURL}/account/${user}/cart/${item.id}`);
     setRenderAgain(!renderAgain);
-
+    setRunUseEffect(!runUseEffect);
     onReRender();
     setDeleting(false);
   };
@@ -74,7 +85,7 @@ function CartCard({ onReRender, item }) {
             <button onClick={() => changeCount("+")}>+</button>
           </div>
           <div className="priceDetail">
-            <span>₹{total}</span>
+            <span>₹{itemCount * item.reducedPrice}</span>
           </div>
         </div>
       </div>

@@ -22,6 +22,8 @@ function Cart() {
   const [cart, setCart] = useState();
   const [reRender, setReRender] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [finalArr, setFinalArr] = useState([]);
+  const [finalPrice, setFinalPrice] = useState(0);
 
   useEffect(async () => {
     await axios.get(`${apiURL}/account/${user}/cart`).then((res) => {
@@ -32,8 +34,43 @@ function Cart() {
     });
   }, [userData, reRender]);
 
+  useEffect(async () => {
+    if (cart.length > 0) {
+      let arr = [...cart];
+      setFinalArr([...arr]);
+    }
+  }, [cart]);
+
   const handleReRender = () => {
     setReRender(!reRender);
+  };
+
+  const onPriceChange = (obj) => {
+    let final = [...finalArr];
+    let index;
+    for (let i = 0; i < final.length; i++) {
+      if (final[i].id === obj.id) {
+        index = i;
+      }
+    }
+    if (index !== undefined) {
+      final[index].count = obj.count;
+      final[index].total = obj.total;
+    } else {
+      console.log(obj.id, "2");
+      final.push(obj);
+    }
+    let price = final
+      .map((ele) => {
+        return ele.total;
+      })
+      .reduce((a, b) => a + b);
+    setFinalPrice(price);
+    setFinalArr([...final]);
+  };
+
+  const placeOrder = () => {
+    console.log();
   };
 
   const renderItems = () => {
@@ -47,7 +84,13 @@ function Cart() {
       return (
         <div className="cart__Items">
           {cart.map((ele) => {
-            return <CartCard onReRender={handleReRender} item={ele} />;
+            return (
+              <CartCard
+                onReRender={handleReRender}
+                item={ele}
+                handleFinal={onPriceChange}
+              />
+            );
           })}
         </div>
       );
@@ -72,12 +115,12 @@ function Cart() {
             </div>
             <div>
               <div className="values">
-                <span>Items:</span>
+                <span>Products:</span>
                 <span>{cart.length}</span>
               </div>
               <div className="values">
                 <span>Price:</span>
-                <span>₹{cart.length > 0 ? cart[0].reducedPrice : "0"}</span>
+                <span>₹{finalPrice}</span>
               </div>
               <div className="address">
                 <span>Shipping Address:</span>
@@ -85,7 +128,7 @@ function Cart() {
               </div>
 
               <div className="orderButton">
-                <button>Place Order</button>
+                <button onClick={placeOrder}>Place Order</button>
               </div>
             </div>
           </div>

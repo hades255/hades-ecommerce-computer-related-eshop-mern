@@ -9,6 +9,7 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Login/Register";
 import Footer from "./Components/Footer/Footer";
 import Cart from "./Pages/Cart/Cart";
+import Account from "./Pages/Account/Account";
 
 function App() {
   return (
@@ -61,6 +62,8 @@ function App() {
               element={
                 <>
                   <Header />
+                  <Account />
+                  <Footer />
                 </>
               }
             />
