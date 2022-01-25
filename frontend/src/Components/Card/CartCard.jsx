@@ -1,12 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { DataContext } from "../../Context/DataContext";
+
 import axios from "axios";
 import apiURL from "../../Api";
 
-function CartCard({ user, onReRender, item }) {
+function CartCard({ onReRender, item }) {
   const [itemCount, setItemCount] = useState(1);
   const [total, setTotal] = useState(item.reducedPrice);
   const [deleting, setDeleting] = useState(false);
+  const [
+    homeData,
+    user,
+    setUser,
+    userData,
+    setUserData,
+    cartData,
+    setCartData,
+    renderAgain,
+    setRenderAgain,
+  ] = useContext(DataContext);
 
   useEffect(() => {
     setTotal(itemCount * item.reducedPrice);
@@ -27,6 +40,8 @@ function CartCard({ user, onReRender, item }) {
   const deleteItem = async () => {
     setDeleting(true);
     await axios.delete(`${apiURL}/account/${user}/cart/${item.id}`);
+    setRenderAgain(!renderAgain);
+
     onReRender();
     setDeleting(false);
   };

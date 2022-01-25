@@ -15,6 +15,8 @@ function Cart() {
     setUserData,
     cartData,
     setCartData,
+    renderAgain,
+    setRenderAgain,
   ] = useContext(DataContext);
 
   const [cart, setCart] = useState();
@@ -32,7 +34,6 @@ function Cart() {
 
   const handleReRender = () => {
     setReRender(!reRender);
-    setCartData(cartData - 1);
   };
 
   const renderItems = () => {
@@ -46,9 +47,7 @@ function Cart() {
       return (
         <div className="cart__Items">
           {cart.map((ele) => {
-            return (
-              <CartCard user={user} onReRender={handleReRender} item={ele} />
-            );
+            return <CartCard onReRender={handleReRender} item={ele} />;
           })}
         </div>
       );

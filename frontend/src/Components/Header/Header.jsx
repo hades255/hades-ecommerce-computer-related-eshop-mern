@@ -4,6 +4,8 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
+import apiURL from "../../Api";
+import axios from "axios";
 
 function Header() {
   const [
@@ -14,10 +16,14 @@ function Header() {
     setUserData,
     cartData,
     setCartData,
+    renderAgain,
+    setRenderAgain,
   ] = useContext(DataContext);
-  useEffect(() => {
-    setCartData(userData[0] ? [...userData[0].cart].length : 0);
-  }, [userData]);
+  useEffect(async () => {
+    await axios.get(`${apiURL}/account/${user}/cart`).then((res) => {
+      setCartData(res.data.length);
+    });
+  }, [userData, renderAgain]);
 
   return (
     <div className="header__Container">

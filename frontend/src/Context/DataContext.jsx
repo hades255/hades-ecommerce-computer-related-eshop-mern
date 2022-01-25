@@ -8,6 +8,7 @@ export const DataProvider = (props) => {
   const [user, setUser] = useState(localStorage.getItem("cjuser"));
   const [userData, setUserData] = useState([]);
   const [cartData, setCartData] = useState(0);
+  const [renderAgain, setRenderAgain] = useState(false);
 
   useEffect(async () => {
     let data = await fetch(apiURl).then((res) => res.json());
@@ -31,6 +32,8 @@ export const DataProvider = (props) => {
         setUserData,
         cartData,
         setCartData,
+        renderAgain,
+        setRenderAgain,
       ]}
     >
       {props.children}

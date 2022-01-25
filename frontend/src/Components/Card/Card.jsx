@@ -21,6 +21,8 @@ function Card({ product, catalog }) {
     setUserData,
     cartData,
     setCartData,
+    renderAgain,
+    setRenderAgain,
   ] = useContext(DataContext);
   const navigate = useNavigate();
 
@@ -44,7 +46,7 @@ function Card({ product, catalog }) {
       await axios.put(`${apiURL}/account/${user}/cart`, product).then((res) => {
         if (res.data === "success") {
           toastMsg("success");
-          setCartData(cartData + 1);
+          setRenderAgain(!renderAgain);
         } else {
           toastMsg("exist");
         }
