@@ -45,6 +45,20 @@ function Cart() {
     setReRender(!reRender);
   };
 
+  const onDeleteItem = (obj) => {
+    let final = [...finalArr];
+    final = final.filter((ele) => ele.id !== obj.id);
+    console.log(final);
+    let price = final
+      .map((ele) => {
+        return ele.total;
+      })
+      .reduce((a, b) => a + b);
+    console.log(price);
+    setFinalPrice(price);
+    setFinalArr([...final]);
+  };
+
   const onPriceChange = (obj) => {
     let final = [...finalArr];
     let index;
@@ -89,6 +103,7 @@ function Cart() {
                 onReRender={handleReRender}
                 item={ele}
                 handleFinal={onPriceChange}
+                handleDelete={onDeleteItem}
               />
             );
           })}

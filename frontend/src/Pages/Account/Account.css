@@ -1,3 +1,93 @@
 .account__Container {
   min-height: 77vh;
+  margin: 2rem auto;
+  width: 95%;
+  box-shadow: 0 0 2rem rgba(88, 87, 87, 0.37);
+}
+
+.account__Top {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.2rem solid #cbcbcb;
+  padding: 2rem;
+}
+
+.account__Top div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.account__Top div h2 {
+  font-size: 4rem;
+  letter-spacing: 2rem;
+  color: #263b7ac5;
+  text-transform: uppercase;
+  padding: 0.2rem;
+}
+
+.account__Top div p {
+  font-size: 2rem;
+  padding: 0.5rem 0.4rem;
+  color: #263b7ac5;
+  letter-spacing: 0.3rem;
+}
+
+.account__Top div p span {
+  letter-spacing: 0;
+  font-size: 2rem;
+}
+
+.account__Top div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.account__Top button {
+  padding: 1rem 3rem;
+  background-color: #e41c1c;
+  border: none;
+  color: #ffffff;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-right: 3rem;
+  border-radius: 0.5rem;
+  box-shadow: 0rem 0.5rem 1.5rem rgba(0, 0, 0, 0.452);
+}
+
+.account__Bottom {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.account__Bottom div:first-child h2 {
+  font-size: 3rem;
+  color: rgba(0, 0, 0, 0.623);
+  letter-spacing: 0.5rem;
+}
+
+.order__Detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.orders {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  border: 0.2rem solid #cbcbcb;
+}
+
+.orders h3 {
+  font-size: 5rem;
+  color: rgba(0, 0, 0, 0.623);
+  padding: 3rem 0;
 }

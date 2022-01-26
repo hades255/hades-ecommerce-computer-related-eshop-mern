@@ -19,6 +19,7 @@ function Header() {
     renderAgain,
     setRenderAgain,
   ] = useContext(DataContext);
+  console.log(user);
   useEffect(async () => {
     await axios.get(`${apiURL}/account/${user}/cart`).then((res) => {
       setCartData(res.data.length);
@@ -63,7 +64,7 @@ function Header() {
             <ShoppingCartOutlinedIcon
               style={{ fontSize: "2.5rem", color: "#5f5f5f" }}
             />
-            <span>{cartData}</span>
+            <span>{cartData ? cartData : 0}</span>
           </Link>
         </div>
       </div>

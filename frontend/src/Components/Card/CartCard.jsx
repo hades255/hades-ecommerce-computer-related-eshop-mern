@@ -4,7 +4,7 @@ import { DataContext } from "../../Context/DataContext";
 import axios from "axios";
 import apiURL from "../../Api";
 
-function CartCard({ onReRender, item, handleFinal }) {
+function CartCard({ onReRender, item, handleFinal, handleDelete }) {
   const [itemCount, setItemCount] = useState(1);
   const [total, setTotal] = useState(item.reducedPrice);
   const [deleting, setDeleting] = useState(false);
@@ -30,6 +30,7 @@ function CartCard({ onReRender, item, handleFinal }) {
     if (operation === "-") {
       if (itemCount === 1) {
         setRunUseEffect(!runUseEffect);
+        handleDelete({ id: item.id });
         deleteItem();
       } else {
         setItemCount(itemCount - 1);
@@ -50,6 +51,7 @@ function CartCard({ onReRender, item, handleFinal }) {
 
   const deleteItem = async () => {
     setDeleting(true);
+    handleDelete({ id: item.id });
     await axios.delete(`${apiURL}/account/${user}/cart/${item.id}`);
     setRenderAgain(!renderAgain);
     setRunUseEffect(!runUseEffect);
