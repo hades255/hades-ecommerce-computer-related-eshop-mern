@@ -31,11 +31,13 @@
   padding: 0.5rem 0.4rem;
   color: #263b7ac5;
   letter-spacing: 0.3rem;
+  font-weight: 800;
 }
 
 .account__Top div p span {
   letter-spacing: 0;
   font-size: 2rem;
+  font-weight: 200;
 }
 
 .account__Top div:last-child {

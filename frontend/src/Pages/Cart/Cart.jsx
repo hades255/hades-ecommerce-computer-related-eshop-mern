@@ -6,6 +6,20 @@ import axios from "axios";
 import CartCard from "../../Components/Card/CartCard";
 import Spinner from "../../Components/Spinner/Spinner";
 
+const loadRazorpay = (src) => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = () => {
+      resolve(true);
+    };
+    script.onerror = () => {
+      resolve(false);
+    };
+    document.body.appendChild(script);
+  });
+};
+
 function Cart() {
   const [
     homeData,
@@ -83,8 +97,48 @@ function Cart() {
     setFinalArr([...final]);
   };
 
-  const placeOrder = () => {
-    console.log();
+  const placeOrder = (res) => {
+    console.log("order placed", res);
+  };
+
+  const dispalayRazorpay = async () => {
+    const res = await loadRazorpay(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("Razorpay SDK failed to load");
+      return;
+    }
+    let data;
+    await axios
+      .post(`${apiURL}/razorpay`, { amount: finalPrice })
+      .then((res) => (data = res.data));
+    console.log(data, "data");
+    const options = {
+      key: "API KEY",
+      currency: data.currency,
+      amount: data.amount.toString(),
+      order_id: data.id,
+      name: "CJ-Stores",
+      description: "Dummy Transaction",
+      image: "../../../public/CJ.svg",
+      handler: function (response) {
+        placeOrder(response);
+      },
+      prefill: {
+        name: userData[0].name,
+        email: userData[0].email,
+      },
+      notes: {
+        address: userData[0].address,
+      },
+      theme: {
+        color: "#e41c1c",
+      },
+    };
+    var paymentObj = new window.Razorpay(options);
+    paymentObj.open();
   };
 
   const renderItems = () => {
@@ -143,7 +197,7 @@ function Cart() {
               </div>
 
               <div className="orderButton">
-                <button onClick={placeOrder}>Place Order</button>
+                <button onClick={dispalayRazorpay}>Place Order</button>
               </div>
             </div>
           </div>
