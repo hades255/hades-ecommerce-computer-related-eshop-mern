@@ -135,6 +135,11 @@
   color: #ffffff;
   background-color: #e41c1c;
   border: none;
+  cursor: pointer;
   border-radius: 3px;
   box-shadow: 0px 5px 1rem rgba(88, 88, 88, 0.555);
+}
+
+.blur {
+  opacity: 70%;
 }

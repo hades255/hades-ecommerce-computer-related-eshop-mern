@@ -42,6 +42,26 @@ router.put("/:email/cart", async (req, res) => {
   }
 });
 
+router.put("/:email/cart", async (req, res) => {
+  try {
+    const item = await accountSC.find({
+      email: req.params.email,
+      cart: { $elemMatch: { id: req.body.id } },
+    });
+    if (item.length > 0) {
+      res.json("exist");
+    } else {
+      const push = await accountSC.findOneAndUpdate(
+        { email: req.params.email },
+        { cart: [] }
+      );
+      res.json("success");
+    }
+  } catch (err) {
+    res.json(err);
+  }
+});
+
 router.delete("/:email/cart/:id", async (req, res) => {
   try {
     const item = await accountSC.findOneAndUpdate(
@@ -55,6 +75,18 @@ router.delete("/:email/cart/:id", async (req, res) => {
     res.json({
       message: "err",
     });
+  }
+});
+
+router.put("/:email/orders", async (req, res) => {
+  try {
+    const push = await accountSC.findOneAndUpdate(
+      { email: req.params.email },
+      { $push: { orders: req.body } }
+    );
+    res.json("success");
+  } catch (err) {
+    res.json(err);
   }
 });
 

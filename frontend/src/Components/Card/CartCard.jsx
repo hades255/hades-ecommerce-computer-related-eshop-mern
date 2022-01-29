@@ -51,7 +51,7 @@ function CartCard({ onReRender, item, handleFinal, handleDelete }) {
 
   const deleteItem = async () => {
     setDeleting(true);
-    handleDelete({ id: item.id });
+    // handleDelete({ id: item.id });
     await axios.delete(`${apiURL}/account/${user}/cart/${item.id}`);
     setRenderAgain(!renderAgain);
     setRunUseEffect(!runUseEffect);

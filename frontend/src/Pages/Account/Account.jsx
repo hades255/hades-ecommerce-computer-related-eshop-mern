@@ -5,6 +5,7 @@ import axios from "axios";
 import apiURL from "../../Api";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
+import OrderCard from "../../Components/Card/OrderCard";
 
 function Account() {
   const [
@@ -26,6 +27,7 @@ function Account() {
   useEffect(async () => {
     await axios.get(`${apiURL}/account/${user}`).then((res) => {
       let order = res.data[0].orders;
+      console.log(order);
       setOrderDetails([...order]);
       setAccount([...res.data]);
     });
@@ -42,6 +44,13 @@ function Account() {
   const renderOrder = () => {
     let fragement;
     if (orderDetails.length > 0) {
+      fragement = (
+        <div className="orders">
+          {orderDetails.map((ele) => {
+            return <OrderCard order={ele} />;
+          })}
+        </div>
+      );
     } else {
       fragement = (
         <div className="orders">

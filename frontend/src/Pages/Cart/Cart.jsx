@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import apiURL from "../../Api";
 import "./Cart.css";
+import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 import axios from "axios";
 import CartCard from "../../Components/Card/CartCard";
@@ -21,6 +22,8 @@ const loadRazorpay = (src) => {
 };
 
 function Cart() {
+  let navigate = useNavigate();
+
   const [
     homeData,
     user,
@@ -88,6 +91,7 @@ function Cart() {
       console.log(obj.id, "2");
       final.push(obj);
     }
+    console.log(final);
     let price = final
       .map((ele) => {
         return ele.total;
@@ -97,8 +101,38 @@ function Cart() {
     setFinalArr([...final]);
   };
 
-  const placeOrder = (res) => {
-    console.log("order placed", res);
+  const getDate = () => {
+    const dateObj = new Date();
+    let date = dateObj.getDate();
+    let month = dateObj.getMonth();
+    let year = dateObj.getFullYear();
+    let fullDate = `${date}/${month + 1}/${year}`;
+    return fullDate;
+  };
+  const getTime = () => {
+    const dateObj = new Date();
+    let hour = dateObj.getHours();
+    let min = dateObj.getMinutes();
+    let time = `${hour}:${min}`;
+    return time;
+  };
+
+  const placeOrder = async (res) => {
+    let date = getDate();
+    let time = getTime();
+    let orderObj = {
+      items: [...finalArr],
+      orderId: res.razorpay_order_id,
+      price: finalPrice,
+      date: date,
+      time: time,
+    };
+    await axios.put(`${apiURL}/account/${user}/orders`, orderObj);
+    await axios.put(`${apiURL}/account/${user}/cart/delete`);
+    setReRender(!reRender);
+    setFinalPrice(0);
+    setRenderAgain(!renderAgain);
+    navigate("/account");
   };
 
   const dispalayRazorpay = async () => {
@@ -114,7 +148,6 @@ function Cart() {
     await axios
       .post(`${apiURL}/razorpay`, { amount: finalPrice })
       .then((res) => (data = res.data));
-    console.log(data, "data");
     const options = {
       key: "API KEY",
       currency: data.currency,
@@ -122,7 +155,7 @@ function Cart() {
       order_id: data.id,
       name: "CJ-Stores",
       description: "Dummy Transaction",
-      image: "../../../public/CJ.svg",
+      image: "https://i.ibb.co/0nXYpy6/CJ.jpg",
       handler: function (response) {
         placeOrder(response);
       },
@@ -197,7 +230,18 @@ function Cart() {
               </div>
 
               <div className="orderButton">
-                <button onClick={dispalayRazorpay}>Place Order</button>
+                <button
+                  className={cart.length === 0 ? "blur" : ""}
+                  onClick={
+                    cart.length === 0
+                      ? () => {
+                          alert("First add items to cart");
+                        }
+                      : dispalayRazorpay
+                  }
+                >
+                  Place Order
+                </button>
               </div>
             </div>
           </div>
