@@ -16,7 +16,9 @@ function Item() {
   const id = Params.id;
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState(false);
+  const [showUpdateInput, setShowUpdateInput] = useState(false);
   const [itemData, setItemData] = useState();
+  const [renderAgain, setRenderAgain] = useState(true);
   const [
     homeData,
     user,
@@ -32,7 +34,30 @@ function Item() {
       setItemData(res.data);
     });
     setLoading(false);
-  }, []);
+  }, [renderAgain]);
+
+  let yourComment = itemData
+    ? [...itemData[0].comments].filter((ele) => {
+        return ele.mail === user;
+      })
+    : [];
+
+  const deleteComment = async () => {
+    await axios
+      .delete(`${apiURL}/catalog/${catalog}/${id}/${user}`)
+      .then((res) => {
+        if (res.data.message === "comments deleated") {
+          yourComment = [];
+        }
+      });
+    setRenderAgain(!renderAgain);
+  };
+
+  const updateComment = () => {
+    setShowUpdateInput(!showUpdateInput);
+  };
+
+  const makeChanges = () => {};
 
   const toastMsg = (res) => {
     if (res === "success") {
@@ -62,7 +87,9 @@ function Item() {
     }
   };
   const renderComments = () => {
-    let cmtArr = itemData[0].comments;
+    let cmtArr = [...itemData[0].comments].filter((ele) => {
+      return ele.mail !== user;
+    });
     console.log(cmtArr);
     let fragment = cmtArr.map((ele) => {
       return (
@@ -133,6 +160,42 @@ function Item() {
           </div>
           <div className="item__Reviews">
             <h3>Customer Reviews</h3>
+            {yourComment.length > 0 ? (
+              <div className="your__Comment">
+                <h2>Your Comment :</h2>
+                <div className="review__Container">
+                  <AccountCircleIcon style={{ fontSize: "5rem" }} />{" "}
+                  <span>{yourComment[0].name}</span>
+                  <div>
+                    <rating className="item__Rating">
+                      {yourComment[0].rating}
+                    </rating>
+                  </div>
+                  <div className="review__Content">
+                    {showUpdateInput ? (
+                      <input
+                        className="update__Input"
+                        type="text"
+                        value={yourComment[0].Comment}
+                      />
+                    ) : (
+                      yourComment[0].Comment
+                    )}
+                  </div>
+                </div>
+                <div className="cmt__Buttons">
+                  <p onClick={updateComment}>
+                    {showUpdateInput ? "Cancel" : "Update"}
+                  </p>
+                  <p onClick={deleteComment}>Delete</p>
+                  <p onClick={makeChanges}>
+                    {showUpdateInput ? "Update Comment" : ""}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
             <div>{renderComments()}</div>
           </div>
         </div>

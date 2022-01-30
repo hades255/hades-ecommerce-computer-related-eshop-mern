@@ -91,3 +91,39 @@
   padding-left: 1rem;
   font-weight: 550;
 }
+
+.your__Comment {
+  border: 2px solid #427db491;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.your__Comment h2 {
+  font-size: 2rem;
+}
+
+.cmt__Buttons {
+  display: flex;
+  align-items: center;
+}
+
+.cmt__Buttons p {
+  padding: 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cmt__Buttons p:first-child {
+  color: rgba(59, 59, 231, 0.692);
+}
+
+.cmt__Buttons p:last-child {
+  color: rgba(238, 65, 65, 0.63);
+}
+
+.update__Input {
+  font-size: 2rem;
+  padding: 1rem 2rem;
+}

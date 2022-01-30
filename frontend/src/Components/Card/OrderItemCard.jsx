@@ -1,10 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Rating } from "react-simple-star-rating";
 import { DataContext } from "../../Context/DataContext";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import apiURL from "../../Api";
 
 function OrderItemCard({ ele }) {
+  let navigate = useNavigate();
   const [
     homeData,
     user,
@@ -16,6 +18,7 @@ function OrderItemCard({ ele }) {
     renderAgain,
     setRenderAgain,
   ] = useContext(DataContext);
+  console.log(ele, "ele");
 
   const [writeReview, setWriteReview] = useState(false);
   const [alreadyReviewed, setAlreadyReviewed] = useState(false);
@@ -28,16 +31,22 @@ function OrderItemCard({ ele }) {
         console.log(res.data);
         let comments = res.data[0].comments;
         for (let i = 0; i < comments.length; i++) {
-          if (comments[i].email === user) {
+          if (comments[i].mail === user) {
             console.log("present");
             setRatingValue(comments[i].rating);
             setAlreadyReviewed(true);
           } else {
+            console.log("present");
+
             setAlreadyReviewed(false);
           }
         }
       });
   }, []);
+
+  const navigateToItem = () => {
+    navigate(`/catalog/${ele.catalog}/${ele.id}`);
+  };
 
   let comment;
   const handleRating = (rate) => {
@@ -90,13 +99,13 @@ function OrderItemCard({ ele }) {
     } else {
       let obj = {
         name: userData[0].username,
-        email: user,
+        mail: user,
         rating: ratingValue,
         Comment: comment,
       };
       await axios.put(`${apiURL}/catalog/${ele.catalog}/${ele.id}`, obj);
       setAlreadyReviewed(true);
-      //   setWriteReview(false);
+      setWriteReview(false);
     }
   };
   return (
@@ -104,6 +113,7 @@ function OrderItemCard({ ele }) {
       <div className="items__Card">
         <div>{ele.count}X</div>
         <div
+          onClick={navigateToItem}
           style={{
             backgroundImage: `url(${ele.img})`,
             backgroundSize: "contain",
@@ -113,7 +123,7 @@ function OrderItemCard({ ele }) {
             height: "15rem",
           }}
         ></div>
-        <div>
+        <div onClick={navigateToItem}>
           <p>{ele.name}</p>
         </div>
         <div>
