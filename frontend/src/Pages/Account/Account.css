@@ -127,22 +127,122 @@
 .items__Card {
   display: flex;
   padding: 1rem;
+  justify-content: space-between;
   align-items: center;
 }
 
 .items__Card div {
   font-size: 1.5rem;
   font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 2rem;
+}
+
+.items__Card div p {
+  font-size: 2rem;
 }
 
 .items__Card div:last-child {
   text-align: center;
   font-size: 3rem;
   font-weight: 900;
+  width: 10%;
 }
 
 .items__Card div:first-child {
   text-align: center;
   font-size: 3rem;
+}
+
+.items__Card div:nth-child(3) {
+  width: 65%;
+}
+
+.order__Total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2rem;
+  border-top: 0.2rem solid #cbcbcb;
+}
+
+.order__Total span {
+  font-size: 2rem;
+}
+
+.order__Total span strong {
+  font-size: 2rem;
+}
+
+.order__Review p {
+  font-size: 1.5rem;
+  color: goldenrod;
+  font-weight: 700;
+  text-align: end;
+  padding: 0.5rem 2.5rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.write__Review {
+  padding: 2rem;
+  width: 100%;
+}
+
+.write__Review div h1 {
+  font-size: 2.5rem;
+}
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.comment input {
+  outline: none;
+  padding: 0.5rem 1rem;
+  width: 30%;
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+}
+
+.buttons button {
+  padding: 0.5rem 2rem;
+  font-size: 1.5rem;
+  border: none;
+  color: #ffffff;
+  background-color: rgb(31, 80, 238);
+  cursor: pointer;
+}
+.buttons button:first-child {
+  background-color: #e41c1c;
+  margin-right: 2rem;
+}
+
+.your__Rating {
+  padding: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.your__Rating h1 {
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rated {
+  background-color: #138834;
+  font-size: 1.3rem;
+  margin-left: 0.2rem;
+  padding: 0.2rem 1.5rem;
+  color: #ffffff;
+  border-radius: 0.5rem;
+  border: 1px solid black;
+  padding-bottom: 0.5rem;
 }
