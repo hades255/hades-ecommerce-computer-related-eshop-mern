@@ -90,6 +90,7 @@
   font-size: 1.5rem;
   padding-left: 1rem;
   font-weight: 550;
+  width: 80%;
 }
 
 .your__Comment {
@@ -125,5 +126,7 @@
 
 .update__Input {
   font-size: 2rem;
-  padding: 1rem 2rem;
+  padding: 1rem;
+  outline: none;
+  width: 80%;
 }

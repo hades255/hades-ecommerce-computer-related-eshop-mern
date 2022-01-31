@@ -18,7 +18,6 @@ function OrderItemCard({ ele }) {
     renderAgain,
     setRenderAgain,
   ] = useContext(DataContext);
-  console.log(ele, "ele");
 
   const [writeReview, setWriteReview] = useState(false);
   const [alreadyReviewed, setAlreadyReviewed] = useState(false);
@@ -28,16 +27,12 @@ function OrderItemCard({ ele }) {
     await axios
       .get(`${apiURL}/catalog/${ele.catalog}/${ele.id}`)
       .then((res) => {
-        console.log(res.data);
         let comments = res.data[0].comments;
         for (let i = 0; i < comments.length; i++) {
           if (comments[i].mail === user) {
-            console.log("present");
             setRatingValue(comments[i].rating);
             setAlreadyReviewed(true);
           } else {
-            console.log("present");
-
             setAlreadyReviewed(false);
           }
         }
@@ -121,9 +116,10 @@ function OrderItemCard({ ele }) {
             backgroundPosition: "center",
             width: "15rem",
             height: "15rem",
+            cursor: "pointer",
           }}
         ></div>
-        <div onClick={navigateToItem}>
+        <div onClick={navigateToItem} style={{ cursor: "pointer" }}>
           <p>{ele.name}</p>
         </div>
         <div>

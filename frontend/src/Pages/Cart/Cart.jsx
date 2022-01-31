@@ -65,13 +65,11 @@ function Cart() {
   const onDeleteItem = (obj) => {
     let final = [...finalArr];
     final = final.filter((ele) => ele.id !== obj.id);
-    console.log(final);
     let price = final
       .map((ele) => {
         return ele.total;
       })
       .reduce((a, b) => a + b);
-    console.log(price);
     setFinalPrice(price);
     setFinalArr([...final]);
   };
@@ -88,10 +86,8 @@ function Cart() {
       final[index].count = obj.count;
       final[index].total = obj.total;
     } else {
-      console.log(obj.id, "2");
       final.push(obj);
     }
-    console.log(final);
     let price = final
       .map((ele) => {
         return ele.total;

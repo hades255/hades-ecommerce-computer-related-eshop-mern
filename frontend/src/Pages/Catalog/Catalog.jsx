@@ -10,7 +10,6 @@ function Catalog() {
   const [loading, setLoading] = useState(true);
   useEffect(async () => {
     await axios.get(`${apiURL}/catalog`).then((res) => {
-      console.log(res.data);
       setDetails(res.data);
     });
     setLoading(false);

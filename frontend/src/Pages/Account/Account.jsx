@@ -27,7 +27,6 @@ function Account() {
   useEffect(async () => {
     await axios.get(`${apiURL}/account/${user}`).then((res) => {
       let order = res.data[0].orders;
-      console.log(order);
       setOrderDetails([...order]);
       setAccount([...res.data]);
     });

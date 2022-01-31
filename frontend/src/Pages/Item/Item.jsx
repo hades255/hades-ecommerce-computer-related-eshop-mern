@@ -29,6 +29,8 @@ function Item() {
     setCartData,
   ] = useContext(DataContext);
 
+  let updatedCmt;
+
   useEffect(async () => {
     await axios.get(`${apiURL}/catalog/${catalog}/${id}`).then((res) => {
       setItemData(res.data);
@@ -57,7 +59,13 @@ function Item() {
     setShowUpdateInput(!showUpdateInput);
   };
 
-  const makeChanges = () => {};
+  const makeChanges = async () => {
+    await axios.put(`${apiURL}/catalog/${catalog}/${id}/${user}`, {
+      Comment: updatedCmt,
+    });
+    setShowUpdateInput(false);
+    setRenderAgain(!renderAgain);
+  };
 
   const toastMsg = (res) => {
     if (res === "success") {
@@ -70,7 +78,6 @@ function Item() {
   const addCart = async () => {
     if (user) {
       setAdding(true);
-      console.log(itemData);
       await axios
         .put(`${apiURL}/account/${user}/cart`, itemData[0])
         .then((res) => {
@@ -90,7 +97,6 @@ function Item() {
     let cmtArr = [...itemData[0].comments].filter((ele) => {
       return ele.mail !== user;
     });
-    console.log(cmtArr);
     let fragment = cmtArr.map((ele) => {
       return (
         <div className="review__Container">
@@ -104,6 +110,10 @@ function Item() {
       );
     });
     return fragment;
+  };
+
+  const changeComment = (e) => {
+    updatedCmt = e.target.value;
   };
 
   return (
@@ -176,7 +186,8 @@ function Item() {
                       <input
                         className="update__Input"
                         type="text"
-                        value={yourComment[0].Comment}
+                        onChange={changeComment}
+                        defaultValue={yourComment[0].Comment}
                       />
                     ) : (
                       yourComment[0].Comment

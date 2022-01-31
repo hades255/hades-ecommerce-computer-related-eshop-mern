@@ -130,6 +130,28 @@ router.put("/:catalog/:id", async (req, res) => {
   }
 });
 
+router.put("/:catalog/:id/:mail", async (req, res) => {
+  try {
+    let catalog = req.params.catalog;
+    let email = req.params.mail;
+    const item = await findModel(catalog).findOneAndUpdate(
+      { id: req.params.id, "comments.mail": email },
+      {
+        $set: {
+          "comments.$.Comment": req.body.Comment,
+        },
+      }
+    );
+    res.json({
+      message: "comments updated",
+    });
+  } catch (err) {
+    res.json({
+      message: "err",
+    });
+  }
+});
+
 router.delete("/:catalog/:id/:mail", async (req, res) => {
   try {
     let catalog = req.params.catalog;

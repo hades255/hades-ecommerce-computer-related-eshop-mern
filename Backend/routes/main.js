@@ -96,7 +96,6 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/razorpay", async (req, res) => {
-  // const payment_capture = 1;
   const amount = req.body.amount;
   const currency = "INR";
 

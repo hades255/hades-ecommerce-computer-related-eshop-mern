@@ -19,7 +19,6 @@ function Header() {
     renderAgain,
     setRenderAgain,
   ] = useContext(DataContext);
-  console.log(user);
   useEffect(async () => {
     await axios.get(`${apiURL}/account/${user}/cart`).then((res) => {
       setCartData(res.data.length);
