@@ -144,6 +144,12 @@ function Cart() {
     await axios
       .post(`${apiURL}/razorpay`, { amount: finalPrice })
       .then((res) => (data = res.data));
+    if (data === "Amount exceeds maximum amount allowed.") {
+      alert(
+        "Because of razorpay test mode, It doesn't accept amount greater than ₹15000. So please update your cart accordingly"
+      );
+      return;
+    }
     const options = {
       key: "API KEY",
       currency: data.currency,
