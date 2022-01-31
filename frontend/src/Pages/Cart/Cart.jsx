@@ -65,11 +65,16 @@ function Cart() {
   const onDeleteItem = (obj) => {
     let final = [...finalArr];
     final = final.filter((ele) => ele.id !== obj.id);
-    let price = final
-      .map((ele) => {
-        return ele.total;
-      })
-      .reduce((a, b) => a + b);
+    console.log(final, "final");
+    let price =
+      final.length > 0
+        ? final
+            .map((ele) => {
+              return ele.total;
+            })
+            .reduce((a, b) => a + b)
+        : 0;
+    console.log(final);
     setFinalPrice(price);
     setFinalArr([...final]);
   };
@@ -150,6 +155,7 @@ function Cart() {
       );
       return;
     }
+
     const options = {
       key: "API KEY",
       currency: data.currency,

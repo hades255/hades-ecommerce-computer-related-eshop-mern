@@ -1,3 +1,3 @@
-const apiURL = "http://localhost:3001";
+const apiURL = "https://cjstores-backend.herokuapp.com";
 
 export default apiURL;

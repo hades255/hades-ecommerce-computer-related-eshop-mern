@@ -26,11 +26,11 @@ function CartCard({ onReRender, item, handleFinal, handleDelete }) {
     sendData();
   }, [itemCount, runUseEffect]);
 
+  let count = itemCount;
+
   const changeCount = async (operation) => {
     if (operation === "-") {
       if (itemCount === 1) {
-        setRunUseEffect(!runUseEffect);
-        handleDelete({ id: item.id });
         deleteItem();
       } else {
         setItemCount(itemCount - 1);
@@ -50,11 +50,11 @@ function CartCard({ onReRender, item, handleFinal, handleDelete }) {
   };
 
   const deleteItem = async () => {
+    setItemCount(count);
+    handleDelete({ id: item.id });
     setDeleting(true);
-    // handleDelete({ id: item.id });
     await axios.delete(`${apiURL}/account/${user}/cart/${item.id}`);
     setRenderAgain(!renderAgain);
-    setRunUseEffect(!runUseEffect);
     onReRender();
     setDeleting(false);
   };
